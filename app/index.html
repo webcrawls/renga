@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>navy.cafe/renga</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<aside>
+
+</aside>
+<main>
+    <header class="title">
+        <h1 class="name">renga</h1>
+        <nav>
+            <small class="about">[<a href="https://en.wikipedia.org/wiki/Renga">about</a>]</small>
+            <small class="about">[<a href="#footer">bottom</a>]</small>
+        </nav>
+    </header>
+    <hr>
+    <div class="haiku-container">
+        <article class="haiku haiku-input">
+            <form action="/" method="post">
+                <label for="haiku-input"></label>
+                <textarea name="lines" autofocus rows="3" id="haiku-input" placeholder="start typing..."></textarea>
+                <button class="haiku-post" type="submit">[post]</button>
+            </form>
+        </article>
+        <th:block th:each="haiku, ctx : ${haikus}">
+            <span class="haiku-sep"></span>
+            <article class="haiku">
+                <div class="empty"></div>
+                <div class="lines">
+                    <p class="haiku-line" th:each="line : ${haiku.getLines()}" th:text="${line}"></p>
+                </div>
+                <p class="haiku-meta">by <b th:text="${haiku.getAuthor().name()}"></b>, <b th:text="${haiku.getTime()}"></b></p>
+            </article>
+        </th:block>
+    </div>
+    <footer id="footer">
+        <small>started sept 2022</small>
+    </footer>
+</main>
+</body>
+</html>
