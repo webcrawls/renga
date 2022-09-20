@@ -67,19 +67,38 @@ public class RengaApp {
                 })
                 .post("/", ctx -> {
                     final String[] lines = ctx.formParam("lines").split(System.lineSeparator());
-                    final @Nullable String author = ctx.formParam("author");
-                    this.haikus.add(0, new Haiku(lines, new Author(Objects.requireNonNullElse(author, "anonymous")), Instant.now()));
-                    ctx.redirect("/");
+                    final boolean valid = this.checkLines(lines);
+
+                    if (valid) {
+                        final @Nullable String author = ctx.formParam("author");
+                        this.haikus.add(0, new Haiku(lines, new Author(Objects.requireNonNullElse(author, "anonymous")), Instant.now()));
+                    }
+
+                    ctx.redirect(ctx.req.getRequestURI());
                 })
-                .start(7000);
+                .start(7001);
     }
 
     /**
      * Saves haikus with {@link RengaLoader}.
      */
     public void save() {
-        this.javalin.stop();
         this.loader.saveHaikus(this.haikus);
+    }
+
+    private boolean checkLines(final String[] lines) {
+        if (lines.length == 0) {
+            return false;
+        }
+
+        boolean empty = true;
+        for (final String line : lines) {
+            if (!line.isEmpty()) {
+                empty = false;
+            }
+        }
+
+        return !empty;
     }
 
 }
