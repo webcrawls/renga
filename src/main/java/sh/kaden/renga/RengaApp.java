@@ -74,7 +74,10 @@ public class RengaApp {
                         this.haikus.add(0, new Haiku(lines, new Author(Objects.requireNonNullElse(author, "anonymous")), Instant.now()));
                     }
 
-                    ctx.redirect(ctx.req.getRequestURI());
+                    System.out.println(ctx.req.getRequestURL());
+                    System.out.println(ctx.req.getRequestURI());
+
+                    ctx.redirect("/renga");
                 })
                 .start(7000);
     }
