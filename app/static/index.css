@@ -209,7 +209,7 @@ footer {
 
 @media only screen and (max-width: 768px) {
     aside {
-        width: 0;
+        display: none;
     }
 
     main {
