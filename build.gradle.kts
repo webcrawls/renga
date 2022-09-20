@@ -26,7 +26,7 @@ tasks {
     jar {
         manifest {
             attributes(
-                "Main-Class" to "RengaApp"
+                "Main-Class" to "sh.kaden.renga.RengaApp"
             )
         }
     }

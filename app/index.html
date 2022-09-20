@@ -13,7 +13,27 @@
 </head>
 <body>
 <aside>
-
+    <h1 class="updates-title">updates</h1>
+    <div class="update">
+        <details>
+            <summary class="update-title">09/19/22</summary>
+            <ul class="update-list">
+                <li>optimized CSS for mobile devices</li>
+                <li>fixed submission on refresh</li>
+                <li>implemented saving haikus to disk (yes this wasn't done)</li>
+                <li>ordered haikus from newest to oldest</li>
+                <li>added link to source & website plug</li>
+                <li>added author field input</li>
+                <li>added syllable count feedback<small> [requires JS]</small>
+                    <ul>
+                        <li>you are free to write haikus that break the format!</li>
+                        <li>line will be coloured <span class="error">red</span> if syllable count is incorrect</li>
+                        <li>line will be coloured <span class="warning">orange</span> if line is over 3</li>
+                    </ul>
+                </li>
+            </ul>
+        </details>
+    </div>
 </aside>
 <main>
     <header class="title">
@@ -21,15 +41,21 @@
         <nav>
             <small class="about">[<a href="https://en.wikipedia.org/wiki/Renga">about</a>]</small>
             <small class="about">[<a href="#footer">bottom</a>]</small>
+            <small class="about">[<a href="https://github.com/kadenscott/renga">source</a>]</small>
         </nav>
     </header>
     <hr>
     <div class="haiku-container">
         <article class="haiku haiku-input">
-            <form action="?" method="post">
+            <form method="post">
                 <label for="haiku-input"></label>
-                <textarea name="lines" autofocus rows="3" id="haiku-input" placeholder="start typing..."></textarea>
-                <button class="haiku-post" type="submit">[post]</button>
+                <textarea name="lines" autofocus rows="3" id="haiku-input" placeholder="5, 7, and 5..."></textarea>
+                <div class="post-fields">
+                    <label><small>author</small>
+                        <input class="haiku-author" name="author" placeholder="anonymous">
+                    </label>
+                    <button id="haiku-post" class="haiku-post" type="submit">[post]</button>
+                </div>
             </form>
         </article>
         <th:block th:each="haiku, ctx : ${haikus}">
@@ -37,15 +63,17 @@
             <article class="haiku">
                 <div class="empty"></div>
                 <div class="lines">
-                    <p class="haiku-line" th:each="line : ${haiku.getLines()}" th:text="${line}"></p>
+                    <p class="haiku-line" th:each="line : ${haiku.lines()}" th:text="${line}"></p>
                 </div>
-                <p class="haiku-meta">by <b th:text="${haiku.getAuthor().name()}"></b>, <b th:text="${haiku.getTime()}"></b></p>
+                <p class="haiku-meta">by <b th:text="${haiku.author().name()}"></b>, <b th:text="${haiku.time()}"></b>
+                </p>
             </article>
         </th:block>
     </div>
     <footer id="footer">
-        <small>started sept 2022</small>
+        <small>started sept 2022 by <a href="https://kaden.sh">a developer from 🇨🇦</a></small>
     </footer>
 </main>
+<!--<script async defer src="renga.js"></script>-->
 </body>
 </html>
