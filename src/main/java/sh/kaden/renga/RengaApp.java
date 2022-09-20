@@ -76,7 +76,7 @@ public class RengaApp {
 
                     ctx.redirect(ctx.req.getRequestURI());
                 })
-                .start(7001);
+                .start(7000);
     }
 
     /**
